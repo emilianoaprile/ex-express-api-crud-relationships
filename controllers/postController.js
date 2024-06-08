@@ -1,11 +1,11 @@
 const {PrismaClient} = require("@prisma/client");
 const prisma = new PrismaClient();
-
+const {generateSlug} = require('../utils/utilsFunction.js')
 
 const index = async (req, res, next) => {
     try {
         const where = {};
-        const {published, string} = req.query;
+        const {published} = req.query;
         if(published === 'true') {
             where.published = true;
         } else if(published === 'false') {
@@ -22,7 +22,8 @@ const index = async (req, res, next) => {
 
 
 const create = async (req, res, next) => {
-    const {title, slug, image, content} = req.body;
+    const {title, image, content} = req.body;
+    const slug = generateSlug(title);
     const data = {
         title,
         slug,
