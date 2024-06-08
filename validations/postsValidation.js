@@ -71,7 +71,34 @@ const bodyData = {
                 return true;
             }
         }
-    }
+    },
+    tags: {
+        in: ['body'],
+        notEmpty: {
+            errorMessage: 'I tag sono obbligatori',
+            bail: true
+        },
+        isArray: {
+            errorMessage: 'I tag devono essere un array',
+            bail: true
+        },
+        custom: {
+            options: async (value) => {
+                const tagIds = value.map(tagId => parseInt(tagId));
+                const tags = await prisma.tag.findMany({
+                    where: {
+                        id: {
+                            in: tagIds
+                        }
+                    }
+                })
+                if(tags.length!== tagIds.length) {
+                    throw new Error('Uno o più tag non esistono')
+                }
+                return true;
+            }
+        }
+    } 
 
 }
 

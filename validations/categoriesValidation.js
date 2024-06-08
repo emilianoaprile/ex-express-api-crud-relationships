@@ -2,16 +2,16 @@ const bodyData = {
     name: {
         in: ["body"],
         notEmpty: {
-            errorMessage: 'Name è un campo obbligatorio.',
+            errorMessage: 'Name della categoria è un campo obbligatorio.',
             bail: true
         },
         isString: {
-            errorMessage: 'Name deve essere una stringa.',
+            errorMessage: 'Name della categoria deve essere una stringa.',
             bail: true
         },
         isLength: {
-            errorMessage: 'Name deve essere di almeno 5 caratteri',
-            options: {min: 5}
+            errorMessage: 'Name della categoria deve essere di almeno 3 caratteri',
+            options: {min: 3}
         }
     }
 }

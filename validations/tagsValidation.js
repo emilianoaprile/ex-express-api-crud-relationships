@@ -10,7 +10,7 @@ const bodyData = {
             bail: true
         },
         isLength: {
-            errorMessage: 'Name del tag deve essere di almeno 5 caratteri',
+            errorMessage: 'Name del tag deve essere di almeno 2 caratteri',
             options: {min: 2}
         }
     }
