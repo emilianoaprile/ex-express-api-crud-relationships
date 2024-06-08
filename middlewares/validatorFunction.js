@@ -1,6 +1,6 @@
 const {checkSchema, validationResult} = require('express-validator');
 
-module.exports = (shcema) => {
+module.exports = (schema) => {
     return [
         checkSchema(schema),
         (req, res, next) => {

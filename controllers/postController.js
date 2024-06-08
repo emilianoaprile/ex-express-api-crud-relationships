@@ -42,7 +42,7 @@ const create = async (req, res, next) => {
 
 const show = async (req, res, next) => {
     try {
-        const {slug} = req.params;
+        const slug = req.params.slug;
         const post = await prisma.post.findUnique({
             where: {slug: slug}
         })
