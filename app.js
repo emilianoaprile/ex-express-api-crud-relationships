@@ -6,6 +6,7 @@ require("dotenv").config();
 const port = process.env.PORT || 3000;
 const postsRouter = require('./routers/postRoutes.js');
 const categoriesRouter = require('./routers/categoryRoutes.js');
+const tagsRouter = require('./routers/tagRoutes.js');
 
 // middleware json
 app.use(express.json());
@@ -13,6 +14,7 @@ app.use(express.json());
 //middleware routes
 app.use('/posts', postsRouter);
 app.use('/categories', categoriesRouter);
+app.use('/tags', tagsRouter);
 
 // middleware error
 app.use(errorNotFound)
