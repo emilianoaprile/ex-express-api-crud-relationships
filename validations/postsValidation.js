@@ -51,6 +51,26 @@ const bodyData = {
             errorMessage: 'Il campo published deve essere un booleano',
             bail: true
         }
+    },
+    categoryId: {   
+        in: ['body'],
+        isInt: {
+            errorMessage: 'CategoryId deve essere un numero intero',
+            bail: true
+        },
+        // controllo se la categoria esiste
+        custom: {
+            options: async (value) => {
+                const categoryId = parseInt(value);
+                const category = await prisma.category.findUnique({
+                    where: {id: categoryId}
+                })
+                if(!category) {
+                    throw new Error(`Categoria con id ${categoryId} non trovata`)
+                }
+                return true;
+            }
+        }
     }
 
 }

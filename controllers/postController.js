@@ -22,7 +22,7 @@ const index = async (req, res, next) => {
 
 
 const create = async (req, res, next) => {
-    const {title, image, content} = req.body;
+    const {title, image, content, categoryId} = req.body;
     const slug = generateSlug(title);
     const data = {
         title,
@@ -31,8 +31,15 @@ const create = async (req, res, next) => {
         content,
         published: req.body.published ? true : false
     }
+
+    if(categoryId) {
+        data.categoryId = categoryId;
+    }
+
     try {
-        const post = await prisma.post.create({data})
+        const post = await prisma.post.create({
+            data
+        })
         res.status(200).json(post)
     }catch (err) {
         console.log(err)
@@ -44,7 +51,14 @@ const show = async (req, res, next) => {
     try {
         const slug = req.params.slug;
         const post = await prisma.post.findUnique({
-            where: {slug: slug}
+            where: {slug: slug},
+            include: {
+                category: {
+                    select: {
+                        name: true
+                    }
+                }
+            }
         })
         if(post) {
             res.json(post)
