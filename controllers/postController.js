@@ -14,11 +14,8 @@ const index = async (req, res, next) => {
 
     const posts = await prisma.post.findMany({
       where,
-      // tags inclusi
       include: {
-        select: {
-          tags: true,
-        },
+        tags: true,
       },
     });
     res.status(200).json(posts);
